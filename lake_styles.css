@@ -222,15 +222,18 @@ section#leftcol > aside li:first-of-type {
    font-style: italic;
 }
 
-/* 3.e 后代选择器：卡片里的链接用淡紫，和栗色正文区分 */
+/* 3.e 后代选择器：卡片里的链接用深紫，既区别于栗色正文又看得清
+   浅色卡片上不能用淡紫：淡紫在鲑鱼粉底上对比度只有 1.03:1，等于看不见；
+   #43215C 在粉底上约 6.1:1、在沙金底上约 6.9:1，都过了无障碍 4.5:1 */
 section#leftcol aside a {
-   color: plum;                             /* 3.c 颜色名 */
+   color: #43215C;                          /* 3.c 十六进制颜色值 */
+   text-decoration: underline;
 }
 
-/* 3.g 伪类：悬停 / 聚焦时变白，保证底色上依然看得清 */
+/* 3.g 伪类：悬停 / 聚焦时再压深一档提亮反馈（浅底上不能用白色） */
 section#leftcol aside a:hover,
 section#leftcol aside a:focus {
-   color: white;
+   color: #241030;
 }
 
 
