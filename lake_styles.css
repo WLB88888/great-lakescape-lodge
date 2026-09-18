@@ -1,0 +1,328 @@
+@charset "UTF-8";
+/*
+   New Perspectives on HTML5 and CSS3, 7th Edition
+   Tutorial 2
+   Case Problem 4
+
+   Great Lakescape Lodge Style Sheet
+   Author: 247021 WangHaozhe
+   Date:   2026.9.17
+
+   Filename: lake_styles.css
+
+   Colour scheme - warm lakeside timber (亮色卡片 + 深色木屋底色):
+      darkkhaki  页面底色（颜色名）
+      #1B1C14    正文区近黑深棕（颜色值）
+      #784A78    顶部导航条 中紫
+      #582D5A    右侧信息栏 深紫
+      #E3A28E    Notes 卡片 鲑鱼粉
+      #D1BB72    Upcoming Events 卡片 沙金
+      beige      正文文字（颜色名）
+*/
+
+
+/* ==========================================================
+   3.b  Web font - 引入 ZIP 里提供的两款手写体
+   Champagne 清新草书：用于站点标题和各栏标题
+   ========================================================== */
+@font-face {
+   font-family: "CAC Champagne";
+   src: url("cac_champagne.woff") format("woff"),
+        url("cac_champagne.ttf") format("truetype");
+}
+
+/* Dobkin Plain 更奔放的手写体：只用在页脚的署名上，做点缀 */
+@font-face {
+   font-family: "Dobkin Plain";
+   src: url("DobkinPlain.woff") format("woff"),
+        url("DobkinPlain.ttf") format("truetype");
+}
+
+
+/* ==========================================================
+   3.c  配色与整页骨架
+   ========================================================== */
+
+/* 页面底色用颜色名 darkkhaki，卡片外侧留出一圈湖岸沙色 */
+html {
+   background-color: darkkhaki;             /* 3.c 颜色名 */
+}
+
+/* 3.j Flexbox：用 body 做弹性容器搭整页骨架，顺便让左右两栏等高 */
+body {
+   display: flex;                           /* 3.j Flexbox */
+   flex-wrap: wrap;
+   justify-content: space-between;          /* 左右两栏之间留出空档 */
+   background-color: #1B1C14;               /* 3.c 十六进制颜色值 */
+   color: beige;                            /* 3.c 颜色名 */
+   font-family: Verdana, Geneva, sans-serif;
+   font-size: 14px;
+   line-height: 1.6;
+}
+
+/* 页头横跨整行 */
+body > header {
+   flex: 0 0 100%;                          /* 3.e 子元素选择器 */
+}
+
+/* 3.j Flexbox：左栏 70%、右栏 24%，中间 6% 空档 */
+body > section#leftcol {
+   flex: 0 0 70%;
+   margin: 0;                               /* 3.h 覆盖 layout 的浮动外边距 */
+   padding: 0 1.5%;                         /* 3.h 内边距 */
+}
+
+body > section#rightcol {
+   flex: 0 0 24%;
+   margin: 0;                               /* 3.h 外边距 */
+}
+
+
+/* ==========================================================
+   Header - banner 图与顶部导航
+   ========================================================== */
+
+/* banner 与导航之间压一条半透明白线，做出分界 */
+body > header > img {
+   border-bottom: 3px solid rgba(245, 242, 224, 0.45);   /* 3.d 半透明颜色 */
+}
+
+/* 导航条改用 Flexbox 横排，覆盖 layout 里的 table 布局 */
+header > nav {
+   display: block;
+   background-color: #784A78;
+   border-bottom: 2px solid rgba(245, 242, 224, 0.55);   /* 3.d 半透明颜色 */
+}
+
+/* 3.f 列表与列表标记：导航去掉圆点与默认缩进 */
+header > nav > ul {
+   display: flex;                           /* 3.j Flexbox 横排 */
+   justify-content: space-around;
+   list-style-type: none;                   /* 3.f 去掉标记 */
+   margin: 0;                               /* 3.h 外边距 */
+   padding: 0;
+}
+
+/* 每个菜单项等宽平分，文字居中 */
+header > nav > ul > li {
+   display: block;
+   flex: 1 1 auto;
+   text-align: center;
+   padding: 9px 6px;                        /* 3.h 内边距 */
+}
+
+/* 3.e 后代选择器：导航里的链接统一去下划线 */
+header > nav a {
+   color: lavender;                         /* 3.c 颜色名 */
+   font-size: 13px;
+   text-decoration: none;
+}
+
+/* 3.g 伪类：鼠标悬停 / 键盘聚焦时高亮，提示当前可选中的菜单 */
+header > nav a:hover,
+header > nav a:focus {
+   color: white;
+   text-decoration: underline;
+}
+
+
+/* ==========================================================
+   Left column - 主标题、主图、正文与两张提示卡片
+   ========================================================== */
+
+/* 3.e id 选择器 + 3.j Grid：左栏用网格排布，标题/主图/段落各占满一行 */
+section#leftcol {
+   display: grid;                           /* 3.j Grid Layout */
+   grid-template-columns: 1fr 1fr;
+   column-gap: 5%;
+   align-content: start;
+}
+
+section#leftcol > h1,
+section#leftcol > img,
+section#leftcol > p {
+   grid-column: 1 / -1;                     /* 跨满两列 */
+}
+
+/* 站点主标题：用 Champagne 手写体，白字压在深色底上 */
+section#leftcol > h1 {
+   font-family: "CAC Champagne", cursive;   /* 3.b 实际使用 web font */
+   font-size: 40px;
+   font-weight: normal;
+   color: white;                            /* 3.c 颜色名 */
+   letter-spacing: 1px;
+   margin: 6px 0 0;                         /* 3.h 外边距 */
+   padding: 8px 0 4px 16px;                 /* 3.h 内边距 */
+}
+
+/* 正文段落两端对齐、段间留白，长段落更好读 */
+section#leftcol > p {
+   margin: 0 0 16px;                        /* 3.h 段间距 */
+   padding: 0 2px;
+   text-align: justify;
+}
+
+/* 正文里的斜体书名（Great Lakescape Lodge）提高一点亮度做层次 */
+section#leftcol > p em {
+   color: #EDE7CE;
+}
+
+/* 3.e 子元素选择器：只作用于左栏直接子级的卡片，并清掉 layout 的浮动 */
+section#leftcol > aside {
+   float: none;                             /* 3.j 交给 Grid 排布 */
+   width: auto;
+   margin: 0 0 20px;                        /* 3.h 外边距 */
+   padding: 4px 16px 18px;                  /* 3.h 内边距 */
+}
+
+/* Notes 卡片：鲑鱼粉底 + 栗色文字 */
+section#leftcol > aside:first-of-type {
+   background-color: #E3A28E;               /* 3.c 颜色值 */
+   color: maroon;                           /* 3.c 颜色名 */
+}
+
+/* Upcoming Events 卡片：沙金底 + 深棕文字 */
+section#leftcol > aside:last-of-type {
+   background-color: #D1BB72;               /* 3.c 颜色值 */
+   color: saddlebrown;                      /* 3.c 颜色名 */
+}
+
+/* 卡片标题居中、浅色，和卡片底色拉开对比 */
+section#leftcol > aside > h1 {
+   font-size: 22px;
+   font-weight: normal;
+   color: beige;                            /* 3.c 颜色名 */
+   text-align: center;
+   margin: 10px 0 14px;                     /* 3.h 外边距 */
+}
+
+/* 卡片内的小标题（Cycle for Chocolate 等）比正文略大 */
+section#leftcol > aside h2 {
+   font-size: 17px;
+   font-weight: normal;
+   color: #FBF3C9;
+   margin: 16px 0 6px;                      /* 3.h 外边距 */
+}
+
+/* 3.f 列表与列表标记：Notes 用空心圆点并控制缩进 */
+section#leftcol > aside ul {
+   list-style-type: circle;                 /* 3.f 自定义标记 */
+   list-style-position: outside;
+   margin: 0;                               /* 3.h 外边距 */
+   padding-left: 18px;                      /* 3.h 内边距 */
+   font-size: 13px;
+}
+
+section#leftcol > aside li {
+   margin-bottom: 8px;                      /* 3.h 条目间距 */
+}
+
+/* 3.g 伪类：第一条提示用斜体，突出新上线的在线预订 */
+section#leftcol > aside li:first-of-type {
+   font-style: italic;
+}
+
+/* 3.e 后代选择器：卡片里的链接用淡紫，和栗色正文区分 */
+section#leftcol aside a {
+   color: plum;                             /* 3.c 颜色名 */
+}
+
+/* 3.g 伪类：悬停 / 聚焦时变白，保证底色上依然看得清 */
+section#leftcol aside a:hover,
+section#leftcol aside a:focus {
+   color: white;
+}
+
+
+/* ==========================================================
+   Right column - 深紫信息栏与客人评价
+   ========================================================== */
+
+/* 3.e id 选择器：右侧栏整块深紫底 + 米色文字 */
+section#rightcol {
+   background-color: #582D5A;               /* 3.c 颜色值 */
+   color: beige;
+   padding: 6px 0 24px;                     /* 3.h 内边距 */
+}
+
+/* 3.e 后代选择器：侧栏标题用手写体，下方压一条淡紫分隔线 */
+section#rightcol h2 {
+   font-family: "CAC Champagne", cursive;   /* 3.b web font */
+   font-size: 27px;
+   font-weight: normal;
+   color: white;
+   margin: 26px 22px 8px;                   /* 3.h 外边距 */
+   padding-bottom: 5px;                     /* 3.h 内边距 */
+   border-bottom: 1px solid lavender;       /* 3.c 颜色名 */
+}
+
+/* 3.f 列表与列表标记：侧栏链接组不要圆点，整体缩进 */
+section#rightcol ul {
+   list-style-type: none;                   /* 3.f 去掉标记 */
+   margin: 0;                               /* 3.h 外边距 */
+   padding: 0 0 0 40px;                     /* 3.h 内边距 */
+}
+
+section#rightcol a {
+   color: plum;                             /* 3.c 颜色名 */
+   font-size: 13px;
+   text-decoration: none;
+}
+
+/* 3.g 伪类：悬停 / 聚焦时变白加下划线 */
+section#rightcol a:hover,
+section#rightcol a:focus {
+   color: white;
+   text-decoration: underline;
+}
+
+/* 客人评价：斜体淡紫，靠外边距和上方链接组拉开距离 */
+section#rightcol blockquote {
+   margin: 70px 22px 20px;                  /* 3.h 外边距 */
+   padding: 0 4px;                          /* 3.h 内边距 */
+   font-size: 15px;
+   font-style: italic;
+   line-height: 1.7;
+   color: violet;                           /* 3.c 颜色名 */
+}
+
+/* 3.g 伪元素 + 3.i 生成内容：自动给评价加上一对花引号 */
+section#rightcol blockquote::before {
+   content: "\201C";                        /* 3.i 生成左引号 */
+   font-size: 30px;
+   line-height: 0;
+   vertical-align: -10px;
+}
+
+section#rightcol blockquote::after {
+   content: "\201D";                        /* 3.i 生成右引号 */
+   font-size: 30px;
+   line-height: 0;
+   vertical-align: -10px;
+}
+
+
+/* ==========================================================
+   Footer
+   ========================================================== */
+
+/* 页脚：半透明深灰条 + 小号米黄文字，做成一行地址栏 */
+body > footer {
+   flex: 0 0 100%;                          /* 3.e 子元素选择器 */
+   background-color: rgba(84, 79, 92, 0.92);   /* 3.d 半透明颜色（dimgray 调子） */
+   color: lightyellow;                      /* 3.c 颜色名 */
+   font-size: 11px;
+   font-variant: small-caps;
+   letter-spacing: 1.5px;
+   text-align: center;
+   margin: 0;                               /* 3.h 外边距 */
+   padding: 9px 0;                          /* 3.h 内边距 */
+}
+
+/* 页脚署名换成第二款 web font，和站点标题呼应 */
+body > footer em {
+   font-family: "Dobkin Plain", cursive;    /* 3.b web font */
+   font-style: normal;
+   font-size: 14px;
+   letter-spacing: 0;
+}
