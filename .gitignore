@@ -1,6 +1,0 @@
-# 只把网站文件发布到 GitHub Pages，作业资料不上传
-.idea/
-_extract/
-*.pdf
-*.zip
-task-checklist.md
